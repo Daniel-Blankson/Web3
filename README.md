@@ -79,16 +79,16 @@ This section provides details about the deployment process for the Simple Storag
 - **Verified Contract**:
   - The contract was successfully verified on zkSync Sepolia.
   - **Contract Address**: [0x9CF546be37A97593B03Ae9C43623A8d62b81805B](https://sepolia.explorer.zksync.io/address/0x9CF546be37A97593B03Ae9C43623A8d62b81805B)
-  - ![Verified Contract Output](VerifiedContractOutputZKSync.png)
+  - ![Verified Contract Output](./SmartContractDeployment/VerifiedContractOutputZKSync.png)
 
 - **Unverified Contract**:
   - The unverified contract was deployed.
   - **Contract Address**: [0x9273E630574c77A2E530F1B467CE2b24936c554D](https://sepolia.explorer.zksync.io/address/0x9273E630574c77A2E530F1B467CE2b24936c554D)
-  - ![Unverified Contract Output](ContractOutputZKSync.png)
+  - ![Unverified Contract Output](./SmartContractDeployment/ContractOutputZKSync.png)
 
 ## Step-by-Step Guide
 
-For those looking to replicate the deployment process, a detailed step-by-step guide is provided in the [StepByStepGuide.md](./StepByStepGuide.md). This guide covers everything from writing your Solidity code to deploying your smart contract on both L1 and L2 testnets.
+For those looking to replicate the deployment process, a detailed step-by-step guide is provided in the [StepByStepGuide.md](./SmartContractDeployment/StepByStepGuide.md). This guide covers everything from writing your Solidity code to deploying your smart contract on both L1 and L2 testnets.
 
 ## Application Deployment Notes
 
