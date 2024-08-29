@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26; // stating our version
+pragma solidity ^0.8.26; // stating our version, for zkSync it's only compatible with 0.8.24
 
 contract SimpleStorage {
     // favouriteNumber gets initialised to - if no value is given
