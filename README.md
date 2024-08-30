@@ -1,3 +1,7 @@
+Thank you for the clarification. I will update the README.md to reflect that all related contracts and the inheritance explanation are part of the "StorageFactory" section. Here’s the revised version:
+
+---
+
 # Web3 Projects Repository
 
 Welcome to the **Web3 Projects** repository. This repository contains a collection of projects and tutorials related to Web3 development, focusing on the creation and deployment of smart contracts using Solidity, as well as interaction with various blockchain networks, including Layer 1 (L1) and Layer 2 (L2) solutions.
@@ -10,7 +14,11 @@ Welcome to the **Web3 Projects** repository. This repository contains a collecti
   - [Deployment Information](#deployment-information)
   - [Verified vs. Unverified Deployments](#verified-vs-unverified-deployments)
   - [Step-by-Step Guide](#step-by-step-guide)
-- [Storage Factory (Deploying multiple storage contracts)](#storage-factory)
+- [Storage Factory](#storage-factory)
+  - [Simple Storage Contract](#simple-storage-contract-1)
+  - [Storage Factory Contract](#storage-factory-contract)
+  - [AddFiveStorage Contract](#addfivestorage-contract)
+  - [Inheritance in Solidity](#inheritance-in-solidity)
 - [Application Deployment Notes](#application-deployment-notes)
 - [Additional Resources](#additional-resources)
 
@@ -92,6 +100,80 @@ This section provides details about the deployment process for the Simple Storag
 For those looking to replicate the deployment process, a detailed step-by-step guide is provided in the [StepByStepGuide.md](./SmartContractDeployment/StepByStepGuide.md). This guide covers everything from writing your Solidity code to deploying your smart contract on both L1 and L2 testnets.
 
 ## Storage Factory
+
+The Storage Factory section consolidates several related contracts that build upon the Simple Storage contract. This section also includes an explanation of inheritance in Solidity, demonstrating how to create more advanced and reusable contracts.
+
+### Simple Storage Contract
+
+As described above, this contract serves as the foundation for the other contracts in this section.
+
+### Storage Factory Contract
+
+The Storage Factory contract extends the Simple Storage contract by allowing the deployment of multiple instances of the Simple Storage contract. It serves as a factory contract that can deploy and interact with multiple Simple Storage contracts.
+
+#### Key Features:
+- Deploy multiple instances of the Simple Storage contract.
+- Interact with the deployed contracts to store and retrieve data.
+
+#### Contract Code
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+
+import "./SimpleStorage.sol";
+
+contract StorageFactory {
+    SimpleStorage[] public simpleStorageArray;
+
+    function createSimpleStorageContract() public {
+        SimpleStorage simpleStorage = new SimpleStorage();
+        simpleStorageArray.push(simpleStorage);
+    }
+
+    function sfStore(uint256 _simpleStorageIndex, uint256 _simpleStorageNumber) public {
+        simpleStorageArray[_simpleStorageIndex].store(_simpleStorageNumber);
+    }
+
+    function sfGet(uint256 _simpleStorageIndex) public view returns (uint256) {
+        return simpleStorageArray[_simpleStorageIndex].retrieve();
+    }
+}
+```
+
+### AddFiveStorage Contract
+
+The AddFiveStorage contract is a variant of the Simple Storage contract with an additional feature. It adds functionality that allows the stored favorite number to be increased by five.
+
+#### Key Features:
+- Store a favorite number.
+- Retrieve the stored number.
+- Increase the stored number by five.
+
+#### Contract Code
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+
+contract AddFiveStorage {
+    uint256 MyFavouriteNumber;
+
+    function store(uint256 _favouriteNumber) public {
+        MyFavouriteNumber = _favouriteNumber;
+    }
+
+    function retrieve() public view returns(uint256) {
+        return MyFavouriteNumber;
+    }
+
+    function addFive() public {
+        MyFavouriteNumber += 5;
+    }
+}
+```
+
+### Inheritance in Solidity
+
+The concept of inheritance in Solidity is critical for creating complex and reusable contracts. An in-depth explanation and examples related to inheritance can be found in the [InheritenceExplained.md](./StorageFactory/InheritenceExplained.md) file. This document covers how contracts can inherit properties and methods from other contracts, enabling code reusability and modularity.
 
 ## Application Deployment Notes
 
