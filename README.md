@@ -9,7 +9,8 @@ Welcome to the **Web3 Projects** repository. This repository contains a collecti
   - [Contract Overview](#contract-overview)
   - [Deployment Information](#deployment-information)
   - [Verified vs. Unverified Deployments](#verified-vs-unverified-deployments)
-- [Step-by-Step Guide](#step-by-step-guide)
+  - [Step-by-Step Guide](#step-by-step-guide)
+- [Storage Factory (Deploying multiple storage contracts)](#storage-factory)
 - [Application Deployment Notes](#application-deployment-notes)
 - [Additional Resources](#additional-resources)
 
@@ -86,9 +87,11 @@ This section provides details about the deployment process for the Simple Storag
   - **Contract Address**: [0x9273E630574c77A2E530F1B467CE2b24936c554D](https://sepolia.explorer.zksync.io/address/0x9273E630574c77A2E530F1B467CE2b24936c554D)
   - ![Unverified Contract Output](./SmartContractDeployment/ContractOutputZKSync.png)
 
-## Step-by-Step Guide
+### Step-by-Step Guide
 
 For those looking to replicate the deployment process, a detailed step-by-step guide is provided in the [StepByStepGuide.md](./SmartContractDeployment/StepByStepGuide.md). This guide covers everything from writing your Solidity code to deploying your smart contract on both L1 and L2 testnets.
+
+## Storage Factory
 
 ## Application Deployment Notes
 
