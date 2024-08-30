@@ -105,7 +105,45 @@ The Storage Factory section consolidates several related contracts that build up
 
 ### Simple Storage Contract
 
-As described above, this contract serves as the foundation for the other contracts in this section.
+As described above, this contract serves as the foundation for the other contracts in this section, with the virtual keyword added to store function to allow it to be overridden through inheritance.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24; // stating our version
+
+contract SimpleStorage {
+    // favouriteNumber gets initialised to - if no value is given
+    uint256 MyFavouriteNumber; // 0
+
+    // uint256[] listOfFavouriteNumbers;
+    struct Person {
+        uint256 favouriteNumber;
+        string name;
+    }
+
+    // dynamic array
+    Person[] public listOfPeople; // []
+
+    // chelsea -> 232
+    mapping(string => uint256) public nameToFavouriteNumber;
+
+    // Added virtual for the function to be change through inheritance 
+    function store(uint256 _favouriteNumber) public virtual {
+        MyFavouriteNumber = _favouriteNumber;
+    }
+
+    // view, pure
+    function retrieve() public view returns(uint256) {
+        return MyFavouriteNumber;
+    }
+
+    // calldata, memory, storage
+    function addPerson(string memory _name, uint256 _favouriteNumber) public {
+        listOfPeople.push(Person(_favouriteNumber, _name));
+        nameToFavouriteNumber[_name] = _favouriteNumber;
+    }
+}
+```
 
 ### Storage Factory Contract
 
@@ -118,24 +156,30 @@ The Storage Factory contract extends the Simple Storage contract by allowing the
 #### Contract Code
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
 
-import "./SimpleStorage.sol";
+pragma solidity ^0.8.24;
+
+import { SimpleStorage } from "./SimpleStorage.sol";
 
 contract StorageFactory {
-    SimpleStorage[] public simpleStorageArray;
+
+    SimpleStorage[] public listOfSimpleStorageContracts;
 
     function createSimpleStorageContract() public {
-        SimpleStorage simpleStorage = new SimpleStorage();
-        simpleStorageArray.push(simpleStorage);
+        SimpleStorage newSimpleStorageContract = new SimpleStorage();
+        listOfSimpleStorageContracts.push(newSimpleStorageContract);
+
     }
 
-    function sfStore(uint256 _simpleStorageIndex, uint256 _simpleStorageNumber) public {
-        simpleStorageArray[_simpleStorageIndex].store(_simpleStorageNumber);
+    function sfStore(uint256 _simpleStorageIndex, uint256 _newSimpleStorageNumber) public {
+        // Address
+        // ABI - Application Binary Interface
+        listOfSimpleStorageContracts[_simpleStorageIndex].store(_newSimpleStorageNumber);
     }
 
     function sfGet(uint256 _simpleStorageIndex) public view returns (uint256) {
-        return simpleStorageArray[_simpleStorageIndex].retrieve();
+        SimpleStorage mySimpleStorage = listOfSimpleStorageContracts[_simpleStorageIndex];
+        return mySimpleStorage.retrieve();
     }
 }
 ```
@@ -152,21 +196,15 @@ The AddFiveStorage contract is a variant of the Simple Storage contract with an 
 #### Contract Code
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
 
-contract AddFiveStorage {
-    uint256 MyFavouriteNumber;
+pragma solidity ^0.8.24;
 
-    function store(uint256 _favouriteNumber) public {
-        MyFavouriteNumber = _favouriteNumber;
-    }
+import { SimpleStorage } from "./SimpleStorage.sol";
 
-    function retrieve() public view returns(uint256) {
-        return MyFavouriteNumber;
-    }
-
-    function addFive() public {
-        MyFavouriteNumber += 5;
+// AddFiveStorage has the properties of SimpleStorage through inheritance
+contract AddFiveStorage is SimpleStorage {
+    function store(uint256 _newNumber) public override {
+        MyFavouriteNumber = _newNumber + 5;
     }
 }
 ```
